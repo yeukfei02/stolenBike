@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "1.3.13",
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/pickers": "^3.2.10",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -12,8 +14,10 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^5.1.4",
     "axios": "^0.19.2",
     "codecov": "^3.6.5",
+    "date-fns": "^2.0.0-beta.5",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.8.0",
@@ -26,7 +30,6 @@
     "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-normalize": "^0.4.4",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
@@ -41,7 +44,7 @@
     "test": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "heroku-postbuild": "yarn run build",
-    "lint": "eslint . --quiet --fix"
+    "lint": "eslint '*/**/*.{ts,tsx}' --quiet --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
