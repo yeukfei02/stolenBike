@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +34,10 @@ function DisplayResult(props: any) {
   const classes = useStyles();
   const history = useHistory();
 
+  const handlePaperViewTitleClick = (id: string) => {
+    history.push(`/case/${id}`);
+  };
+
   const renderDisplayResult = () => {
     let paperViewResultList = null;
 
@@ -50,7 +54,12 @@ function DisplayResult(props: any) {
               <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
-                    <Typography gutterBottom variant="subtitle1" style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }} onClick={() => handlePaperViewTitleClick(item.id)}>
+                    <Typography
+                      gutterBottom
+                      variant="subtitle1"
+                      style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                      onClick={() => handlePaperViewTitleClick(item.id)}
+                    >
                       {item.title}
                     </Typography>
                     <Typography variant="body2" gutterBottom>
@@ -69,17 +78,9 @@ function DisplayResult(props: any) {
     }
 
     return paperViewResultList;
-  }
+  };
 
-  const handlePaperViewTitleClick = (id: string) => {
-    history.push(`/case/${id}`);
-  }
-
-  return (
-    <div className={classes.root}>
-      {renderDisplayResult()}
-    </div>
-  );
+  return <div className={classes.root}>{renderDisplayResult()}</div>;
 }
 
 export default DisplayResult;
