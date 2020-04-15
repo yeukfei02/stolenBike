@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import MainPage from './mainPage/MainPage';
+import StolenBikeDetails from './stolenBikeDetails/StolenBikeDetails';
 
 // use default theme
 // const theme = createMuiTheme();
@@ -38,6 +39,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <MainPage />
+        </Route>
+        <Route exact path="/case/:id">
+          <StolenBikeDetails />
         </Route>
       </Switch>
     </MuiThemeProvider>
