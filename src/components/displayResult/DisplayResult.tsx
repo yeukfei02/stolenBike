@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { useHistory } from 'react-router-dom';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,6 +44,8 @@ function DisplayResult(props: any) {
 
     if (props.resultList) {
       paperViewResultList = props.resultList.map((item: any, i: number) => {
+        const occurredDate = moment.unix(item.occurred_at).format('ddd MMM DD YYYY');
+
         return (
           <Paper key={i} className={classes.paper}>
             <Grid container spacing={2}>
@@ -66,7 +69,7 @@ function DisplayResult(props: any) {
                       {item.description}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      {item.address}
+                      {occurredDate} - {item.address}
                     </Typography>
                   </Grid>
                 </Grid>

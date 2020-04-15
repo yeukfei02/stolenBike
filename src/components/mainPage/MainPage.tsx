@@ -161,6 +161,11 @@ function MainPage() {
       if (!_.isEmpty(resultList)) {
         resultDiv = (
           <div>
+            <div className="d-flex justify-content-center">
+              <div className={`w-75 mx-4`}>
+                <div className="mt-3 d-flex justify-content-end h5">Total: {resultList.length}</div>
+              </div>
+            </div>
             <DisplayResult resultList={resultListPerPage} />
             <div className="d-flex justify-content-center">
               <Pagination
@@ -198,7 +203,7 @@ function MainPage() {
           <div className="h2">
             <b>Police Department</b>
           </div>
-          <div className="my-3 h4">Stolen Bike</div>
+          <div className="my-3 h3">Stolen Bike</div>
           <Grid container spacing={3}>
             <Grid item xs={6} sm={3}>
               <TextField
