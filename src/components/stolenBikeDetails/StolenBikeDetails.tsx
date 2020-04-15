@@ -50,8 +50,8 @@ function StolenBikeDetails(props: any) {
               if (_.isEqual(item.properties.id.toString(), id)) {
                 if (item.geometry) {
                   if (item.geometry.coordinates) {
-                    const latitude = item.geometry.coordinates[0];
-                    const longitude = item.geometry.coordinates[1];
+                    const latitude = item.geometry.coordinates[1];
+                    const longitude = item.geometry.coordinates[0];
                     setLatitude(latitude);
                     setLongitude(longitude);
                   }
