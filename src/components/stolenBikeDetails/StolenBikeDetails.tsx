@@ -84,12 +84,23 @@ function StolenBikeDetails(props: any) {
     let stolenBikeDetailsDiv = null;
 
     if (stolenBikeDetails) {
-      const occurredDate = moment.unix(stolenBikeDetails.occurred_at).format("MMM Do, ka");
+      const occurredDate = moment.unix(stolenBikeDetails.occurred_at).format('MMM Do, ka');
 
       stolenBikeDetailsDiv = (
         <div className="my-3">
-          <div className="h5"><b>{stolenBikeDetails.title}</b></div>
-          <div className="h6"><span><b>Stolen</b></span> {occurredDate}<span> <b>at</b> {stolenBikeDetails.address}</span></div>
+          <div className="h5">
+            <b>{stolenBikeDetails.title}</b>
+          </div>
+          <div className="h6">
+            <span>
+              <b>Stolen</b>
+            </span>{' '}
+            {occurredDate}
+            <span>
+              {' '}
+              <b>at</b> {stolenBikeDetails.address}
+            </span>
+          </div>
           <CustomMap
             latitude={latitude}
             longitude={longitude}

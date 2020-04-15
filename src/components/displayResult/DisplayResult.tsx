@@ -44,7 +44,7 @@ function DisplayResult(props: any) {
 
     if (props.resultList) {
       paperViewResultList = props.resultList.map((item: any, i: number) => {
-        const occurredDate = moment.unix(item.occurred_at).format("ddd MMM DD YYYY");
+        const occurredDate = moment.unix(item.occurred_at).format('ddd MMM DD YYYY');
 
         return (
           <Paper key={i} className={classes.paper}>
