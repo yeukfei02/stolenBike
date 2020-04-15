@@ -5,21 +5,19 @@ import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import _ from 'lodash';
+
+import CustomMap from '../customMap/CustomMap';
 
 const ROOT_URL = 'https://bikewise.org/api/v2';
 
-async function getIncidentById(id: string) {
-  const response = await axios.get(`${ROOT_URL}/incidents/${id}`);
-  return response;
-}
-
-async function getLocations() {
-  const response = await axios.get(`${ROOT_URL}/locations`);
-  return response;
-}
-
 async function getLocationsMarkers() {
   const response = await axios.get(`${ROOT_URL}/locations/markers`);
+  return response;
+}
+
+async function getIncidentById(id: string) {
+  const response = await axios.get(`${ROOT_URL}/incidents/${id}`);
   return response;
 }
 
@@ -35,12 +33,37 @@ function StolenBikeDetails(props: any) {
   const classes = useStyles();
   const history = useHistory();
 
+  const [latitude, setLatitude] = useState<number>(0);
+  const [longitude, setLongitude] = useState<number>(0);
+
   const [stolenBikeDetails, setStolenBikeDetails] = useState<any>(null);
 
   const id = props.match.params.id;
 
   useEffect(() => {
     if (id) {
+      const locationsMarkersResponse = getLocationsMarkers();
+      locationsMarkersResponse
+        .then((response) => {
+          if (response && response.data) {
+            response.data.features.forEach((item: any, i: number) => {
+              if (_.isEqual(item.properties.id.toString(), id)) {
+                if (item.geometry) {
+                  if (item.geometry.coordinates) {
+                    const latitude = item.geometry.coordinates[0];
+                    const longitude = item.geometry.coordinates[1];
+                    setLatitude(latitude);
+                    setLongitude(longitude);
+                  }
+                }
+              }
+            });
+          }
+        })
+        .catch((e) => {
+          console.log('error = ', e.message);
+        });
+
       const result = getIncidentById(id);
       result
         .then((response) => {
@@ -66,7 +89,13 @@ function StolenBikeDetails(props: any) {
             <b>{stolenBikeDetails.title}</b>
           </div>
           <div className="h6">{stolenBikeDetails.address}</div>
-          <div className="mt-5">
+          <CustomMap
+            latitude={latitude}
+            longitude={longitude}
+            name={stolenBikeDetails.title}
+            address={stolenBikeDetails.address}
+          />
+          <div className="mt-3">
             <div className="h5">
               <b>DESCRIPTION OF INCIDENT</b>
             </div>
