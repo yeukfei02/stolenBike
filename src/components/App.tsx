@@ -13,13 +13,13 @@ import StolenBikeDetails from './stolenBikeDetails/StolenBikeDetails';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#add8e6',
-    },
-    secondary: {
       main: '#00c1e7',
     },
+    secondary: {
+      main: '#009bce',
+    },
     background: {
-      default: '#90ee90',
+      default: '#ffb554',
     },
   },
   typography: {

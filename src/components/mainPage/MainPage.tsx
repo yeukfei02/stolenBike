@@ -203,7 +203,7 @@ function MainPage() {
           <div className="h2">
             <b>Police Department</b>
           </div>
-          <div className="my-3 h4">Stolen Bike</div>
+          <div className="my-3 h3">Stolen Bike</div>
           <Grid container spacing={3}>
             <Grid item xs={6} sm={3}>
               <TextField

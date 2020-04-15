@@ -4,8 +4,9 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import _ from 'lodash';
+import axios from 'axios';
+import moment from 'moment';
 
 import CustomMap from '../customMap/CustomMap';
 
@@ -83,12 +84,12 @@ function StolenBikeDetails(props: any) {
     let stolenBikeDetailsDiv = null;
 
     if (stolenBikeDetails) {
+      const occurredDate = moment.unix(stolenBikeDetails.occurred_at).format("MMM Do, ka");
+
       stolenBikeDetailsDiv = (
         <div className="my-3">
-          <div className="h5">
-            <b>{stolenBikeDetails.title}</b>
-          </div>
-          <div className="h6">{stolenBikeDetails.address}</div>
+          <div className="h5"><b>{stolenBikeDetails.title}</b></div>
+          <div className="h6"><span><b>Stolen</b></span> {occurredDate}<span> <b>at</b> {stolenBikeDetails.address}</span></div>
           <CustomMap
             latitude={latitude}
             longitude={longitude}
@@ -118,7 +119,7 @@ function StolenBikeDetails(props: any) {
           <div className="h2">
             <b>Police Department</b>
           </div>
-          <div className="my-3 h4">Stolen Bike</div>
+          <div className="my-3 h3">Stolen Bike</div>
           {renderStolenBikeDetailsDiv()}
         </Paper>
       </div>
