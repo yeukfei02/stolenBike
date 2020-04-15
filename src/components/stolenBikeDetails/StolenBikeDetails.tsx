@@ -41,31 +41,29 @@ function StolenBikeDetails(props: any) {
   const id = props.match.params.id;
 
   useEffect(() => {
-    const locationsMarkersResponse = getLocationsMarkers();
-    locationsMarkersResponse
-      .then((response) => {
-        if (response && response.data) {
-          response.data.features.forEach((item: any, i: number) => {
-            if (_.isEqual(item.properties.id.toString(), id)) {
-              if (item.geometry) {
-                if (item.geometry.coordinates) {
-                  const latitude = item.geometry.coordinates[0];
-                  const longitude = item.geometry.coordinates[1];
-                  setLatitude(latitude);
-                  setLongitude(longitude);
+    if (id) {
+      const locationsMarkersResponse = getLocationsMarkers();
+      locationsMarkersResponse
+        .then((response) => {
+          if (response && response.data) {
+            response.data.features.forEach((item: any, i: number) => {
+              if (_.isEqual(item.properties.id.toString(), id)) {
+                if (item.geometry) {
+                  if (item.geometry.coordinates) {
+                    const latitude = item.geometry.coordinates[0];
+                    const longitude = item.geometry.coordinates[1];
+                    setLatitude(latitude);
+                    setLongitude(longitude);
+                  }
                 }
               }
-            }
-          });
-        }
-      })
-      .catch((e) => {
-        console.log('error = ', e.message);
-      });
-  }, []);
+            });
+          }
+        })
+        .catch((e) => {
+          console.log('error = ', e.message);
+        });
 
-  useEffect(() => {
-    if (id) {
       const result = getIncidentById(id);
       result
         .then((response) => {
@@ -91,7 +89,12 @@ function StolenBikeDetails(props: any) {
             <b>{stolenBikeDetails.title}</b>
           </div>
           <div className="h6">{stolenBikeDetails.address}</div>
-          <CustomMap latitude={latitude} longitude={longitude} name={stolenBikeDetails.title} address={stolenBikeDetails.address} />
+          <CustomMap
+            latitude={latitude}
+            longitude={longitude}
+            name={stolenBikeDetails.title}
+            address={stolenBikeDetails.address}
+          />
           <div className="mt-3">
             <div className="h5">
               <b>DESCRIPTION OF INCIDENT</b>
