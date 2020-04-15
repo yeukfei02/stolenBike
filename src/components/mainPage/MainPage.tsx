@@ -193,7 +193,7 @@ function MainPage() {
       <div className="mt-5 mb-3 d-flex justify-content-center">
         <Paper className={`${classes.root} w-75 mx-4`}>
           <div className="h2"><b>Police Department</b></div>
-          <div className="h4">Stolen Bike</div>
+          <div className="mt-3 h4">Stolen Bike</div>
           <Grid container spacing={3}>
             <Grid item xs={6} sm={3}>
               <TextField
