@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -12,19 +12,16 @@ import {
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import moment from 'moment';
+import _ from 'lodash';
+
+import DisplayResult from '../displayResult/DisplayResult';
 
 const ROOT_URL = "https://bikewise.org/api/v2";
 
-async function getIncidents(caseDescription: string, fromDate: number, toDate: number, page: number) {
+async function getIncidents(queryData: any) {
   const response = await axios.get(`${ROOT_URL}/incidents`,
     {
-      params: {
-        page: page || 1,
-        per_page: 10,
-        occurred_after: fromDate,
-        occurred_before: toDate,
-        query: caseDescription
-      }
+      params: queryData
     }
   );
   return response;
@@ -45,6 +42,14 @@ function MainPage() {
   const [fromDate, setFromDate] = useState<Date | null>(null);
   const [toDate, setToDate] = useState<Date | null>(null);
 
+  const [resultList, setResultList] = useState<any[]>([]);
+  const [status, setStatus] = useState<string>('');
+
+  useEffect(() => {
+    if (resultList)
+      setStatus('');
+  }, [resultList]);
+
   const handleSearchCaseDescriptionChange = (e: any) => {
     setCaseDescription(e.target.value);
   }
@@ -58,6 +63,8 @@ function MainPage() {
   };
 
   const handleFindCasesClick = async () => {
+    setStatus('loading');
+
     let formDateNum = 0;
     let toDateNum = 0;
 
@@ -70,8 +77,85 @@ function MainPage() {
       toDateNum = parseInt(formattedToDate, 10);
     }
 
-    const result = await getIncidents(caseDescription, formDateNum, toDateNum, 1);
-    console.log("result = ", result);
+    let queryData = {
+      page: 1,
+      per_page: 10,
+    };
+    if (caseDescription) {
+      let obj = {
+        query: ''
+      };
+      obj.query = caseDescription;
+      queryData = Object.assign(queryData, obj);
+    }
+    if (formDateNum) {
+      let obj = {
+        occurred_after: 0,
+      };
+      obj.occurred_after = formDateNum;
+      queryData = Object.assign(queryData, obj);
+    }
+    if (toDateNum) {
+      let obj = {
+        occurred_before: 0,
+      };
+      obj.occurred_before = toDateNum;
+      queryData = Object.assign(queryData, obj);
+    }
+
+    try {
+      const result = await getIncidents(queryData);
+      setResultList(result.data.incidents);
+    } catch (e) {
+      console.log("error = ", e.message);
+      setStatus('error');
+    }
+  }
+
+  const renderResultDiv = () => {
+    let resultDiv = null;
+
+    if (!_.isEmpty(status)) {
+      if (_.isEqual(status, 'loading')) {
+        resultDiv = (
+          <div className={classes.root}>
+            <div className="d-flex justify-content-center">
+              <Paper className={`${classes.root} w-75 mx-4`}>
+                <div className="h5">Loading...</div>
+              </Paper>
+            </div>
+          </div>
+        );
+      } else if (_.isEqual(status, 'error')) {
+        resultDiv = (
+          <div className={classes.root}>
+            <div className="d-flex justify-content-center">
+              <Paper className={`${classes.root} w-75 mx-4`}>
+                <div className="h5" style={{ color: 'red' }}>Oops, something went wrong</div>
+              </Paper>
+            </div>
+          </div>
+        );
+      }
+    } else {
+      if (!_.isEmpty(resultList)) {
+        resultDiv = (
+          <DisplayResult resultList={resultList} />
+        );
+      } else {
+        resultDiv = (
+          <div className={classes.root}>
+            <div className="d-flex justify-content-center">
+              <Paper className={`${classes.root} w-75 mx-4`}>
+                <div className="h5">No reuslts</div>
+              </Paper>
+            </div>
+          </div>
+        );
+      }
+    }
+
+    return resultDiv;
   }
 
   return (
@@ -136,6 +220,7 @@ function MainPage() {
           </Grid>
         </Paper>
       </div>
+      {renderResultDiv()}
     </div>
   );
 }
