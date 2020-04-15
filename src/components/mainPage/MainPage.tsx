@@ -205,7 +205,7 @@ function MainPage() {
           </div>
           <div className="my-3 h3">Stolen Bike</div>
           <Grid container spacing={3}>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={12} sm={3}>
               <TextField
                 id="outlined-full-width"
                 label="Search case descriptions"
@@ -220,9 +220,10 @@ function MainPage() {
                 onChange={handleSearchCaseDescriptionChange}
               />
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={12} sm={3}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
+                  className="w-100"
                   margin="normal"
                   id="from"
                   label="from"
@@ -236,9 +237,10 @@ function MainPage() {
                 />
               </MuiPickersUtilsProvider>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={12} sm={3}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
+                  className="w-100"
                   margin="normal"
                   id="to"
                   label="to"
@@ -252,9 +254,9 @@ function MainPage() {
                 />
               </MuiPickersUtilsProvider>
             </Grid>
-            <Grid item xs={6} sm={3}>
+            <Grid item xs={12} sm={3}>
               <Button
-                className="mt-2 w-100 h-75"
+                className="mt-4 w-100"
                 variant="contained"
                 color="primary"
                 size="large"
