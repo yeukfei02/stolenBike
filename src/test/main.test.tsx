@@ -6,6 +6,7 @@ import { shallow, mount } from 'enzyme';
 import MainPage from '../components/mainPage/MainPage';
 import DisplayResult from '../components/displayResult/DisplayResult';
 import StolenBikeDetails from '../components/stolenBikeDetails/StolenBikeDetails';
+import CustomMap from '../components/customMap/CustomMap';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -27,6 +28,10 @@ describe('main.test', () => {
 
     it('StolenBikeDetails', () => {
       shallow(<StolenBikeDetails />);
+    });
+
+    it('CustomMap', () => {
+      shallow(<CustomMap />);
     });
   });
 });
