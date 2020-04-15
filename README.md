@@ -1,5 +1,8 @@
 # stolenBike
 
+[![Build Status](https://travis-ci.com/yeukfei02/stolenBike.svg?branch=master)](https://travis-ci.com/yeukfei02/stolenBike)
+[![codecov](https://codecov.io/gh/yeukfei02/stolenBike/branch/master/graph/badge.svg)](https://codecov.io/gh/yeukfei02/stolenBike)
+
 Help you to find stolen bike
 
 ## Requirement:
