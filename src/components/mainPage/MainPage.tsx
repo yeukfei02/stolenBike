@@ -5,10 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import 'date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
 import Pagination from '@material-ui/lab/Pagination';
 import axios from 'axios';
@@ -17,14 +14,12 @@ import _ from 'lodash';
 
 import DisplayResult from '../displayResult/DisplayResult';
 
-const ROOT_URL = "https://bikewise.org/api/v2";
+const ROOT_URL = 'https://bikewise.org/api/v2';
 
 async function getIncidents(queryData: any) {
-  const response = await axios.get(`${ROOT_URL}/incidents`,
-    {
-      params: queryData
-    }
-  );
+  const response = await axios.get(`${ROOT_URL}/incidents`, {
+    params: queryData,
+  });
   return response;
 }
 
@@ -58,7 +53,7 @@ function MainPage() {
 
   const handleSearchCaseDescriptionChange = (e: any) => {
     setCaseDescription(e.target.value);
-  }
+  };
 
   const handleFromDateChange = (date: Date | null) => {
     setFromDate(date);
@@ -73,11 +68,11 @@ function MainPage() {
     let toDateNum = 0;
 
     if (fromDate) {
-      const formattedFormDate = moment(fromDate).format("X");
+      const formattedFormDate = moment(fromDate).format('X');
       formDateNum = parseInt(formattedFormDate, 10);
     }
     if (toDate) {
-      const formattedToDate = moment(toDate).format("X");
+      const formattedToDate = moment(toDate).format('X');
       toDateNum = parseInt(formattedToDate, 10);
     }
 
@@ -86,32 +81,32 @@ function MainPage() {
       per_page: 10,
     };
     if (caseDescription) {
-      let obj = {
-        query: caseDescription
+      const obj = {
+        query: caseDescription,
       };
       queryData = Object.assign(queryData, obj);
     }
     if (formDateNum) {
-      let obj = {
+      const obj = {
         occurred_after: formDateNum,
       };
       queryData = Object.assign(queryData, obj);
     }
     if (toDateNum) {
-      let obj = {
+      const obj = {
         occurred_before: toDateNum,
       };
       queryData = Object.assign(queryData, obj);
     }
 
     return queryData;
-  }
+  };
 
   const handleFindCasesClick = async () => {
     setStatus('loading');
     setClicked(true);
 
-    let queryData = getQueryData();
+    const queryData = getQueryData();
 
     try {
       const resultPerPage = await getIncidents(queryData);
@@ -121,15 +116,15 @@ function MainPage() {
       const result = await getIncidents(queryData);
       setResultList(result.data.incidents);
     } catch (e) {
-      console.log("error = ", e.message);
+      console.log('error = ', e.message);
       setStatus('error');
     }
-  }
+  };
 
   const handlePageChange = async (event: any, value: number) => {
     setPage(value);
 
-    let queryData = getQueryData();
+    const queryData = getQueryData();
     queryData.page = value;
     const resultPerPage = await getIncidents(queryData);
     setResultListPerPage(resultPerPage.data.incidents);
@@ -154,7 +149,9 @@ function MainPage() {
           <div className={classes.root}>
             <div className="d-flex justify-content-center">
               <Paper className={`${classes.root} w-75 mx-4`}>
-                <div className="h5" style={{ color: 'red' }}>Oops, something went wrong</div>
+                <div className="h5" style={{ color: 'red' }}>
+                  Oops, something went wrong
+                </div>
               </Paper>
             </div>
           </div>
@@ -166,7 +163,13 @@ function MainPage() {
           <div>
             <DisplayResult resultList={resultListPerPage} />
             <div className="d-flex justify-content-center">
-              <Pagination count={Math.round(resultList.length / 10)} color="secondary" showFirstButton showLastButton onChange={handlePageChange} />
+              <Pagination
+                count={Math.round(resultList.length / 10)}
+                color="secondary"
+                showFirstButton
+                showLastButton
+                onChange={handlePageChange}
+              />
             </div>
           </div>
         );
@@ -186,13 +189,15 @@ function MainPage() {
     }
 
     return resultDiv;
-  }
+  };
 
   return (
     <div className={classes.root}>
       <div className="mt-5 mb-3 d-flex justify-content-center">
         <Paper className={`${classes.root} w-75 mx-4`}>
-          <div className="h2"><b>Police Department</b></div>
+          <div className="h2">
+            <b>Police Department</b>
+          </div>
           <div className="my-3 h4">Stolen Bike</div>
           <Grid container spacing={3}>
             <Grid item xs={6} sm={3}>
@@ -243,7 +248,13 @@ function MainPage() {
               </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={6} sm={3}>
-              <Button className="mt-2 w-100 h-75" variant="contained" color="primary" size="large" onClick={handleFindCasesClick}>
+              <Button
+                className="mt-2 w-100 h-75"
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={handleFindCasesClick}
+              >
                 Find cases
               </Button>
             </Grid>

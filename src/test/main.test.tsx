@@ -1,7 +1,7 @@
 import React from 'react';
-import Enzyme from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import { shallow, mount } from "enzyme";
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import { shallow, mount } from 'enzyme';
 
 import MainPage from '../components/mainPage/MainPage';
 import DisplayResult from '../components/displayResult/DisplayResult';
@@ -15,17 +15,17 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
-describe("main.test", () => {
-  describe("render test", () => {
-    it("MainPage", () => {
+describe('main.test', () => {
+  describe('render test', () => {
+    it('MainPage', () => {
       shallow(<MainPage />);
     });
 
-    it("DisplayResult", () => {
+    it('DisplayResult', () => {
       shallow(<DisplayResult />);
     });
 
-    it("StolenBikeDetails", () => {
+    it('StolenBikeDetails', () => {
       shallow(<StolenBikeDetails />);
     });
   });

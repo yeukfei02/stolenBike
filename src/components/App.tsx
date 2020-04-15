@@ -1,10 +1,7 @@
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import CssBaseline from "@material-ui/core/CssBaseline";
-import {
-  Switch,
-  Route
-} from "react-router-dom";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { Switch, Route } from 'react-router-dom';
 
 import MainPage from './mainPage/MainPage';
 import StolenBikeDetails from './stolenBikeDetails/StolenBikeDetails';
@@ -16,20 +13,19 @@ import StolenBikeDetails from './stolenBikeDetails/StolenBikeDetails';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#add8e6'
+      main: '#add8e6',
     },
     secondary: {
-      main: '#00c1e7'
+      main: '#00c1e7',
     },
     background: {
-      default: "#90ee90"
-    }
+      default: '#90ee90',
+    },
   },
   typography: {
-    "fontFamily": "Hind, sans-serif",
-  }
-},
-)
+    fontFamily: 'Hind, sans-serif',
+  },
+});
 
 function App() {
   return (
