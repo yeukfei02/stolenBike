@@ -10,6 +10,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
+import Pagination from '@material-ui/lab/Pagination';
 import axios from 'axios';
 import moment from 'moment';
 import _ from 'lodash';
@@ -43,8 +44,11 @@ function MainPage() {
   const [toDate, setToDate] = useState<Date | null>(null);
 
   const [resultList, setResultList] = useState<any[]>([]);
+  const [resultListPerPage, setResultListPerPage] = useState<any[]>([]);
   const [status, setStatus] = useState<string>('');
   const [clicked, setClicked] = useState<boolean>(false);
+
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     if (resultList) {
@@ -64,10 +68,7 @@ function MainPage() {
     setToDate(date);
   };
 
-  const handleFindCasesClick = async () => {
-    setStatus('loading');
-    setClicked(true);
-
+  const getQueryData = () => {
     let formDateNum = 0;
     let toDateNum = 0;
 
@@ -81,32 +82,42 @@ function MainPage() {
     }
 
     let queryData = {
-      page: 1,
+      page: page,
       per_page: 10,
     };
     if (caseDescription) {
       let obj = {
-        query: ''
+        query: caseDescription
       };
-      obj.query = caseDescription;
       queryData = Object.assign(queryData, obj);
     }
     if (formDateNum) {
       let obj = {
-        occurred_after: 0,
+        occurred_after: formDateNum,
       };
-      obj.occurred_after = formDateNum;
       queryData = Object.assign(queryData, obj);
     }
     if (toDateNum) {
       let obj = {
-        occurred_before: 0,
+        occurred_before: toDateNum,
       };
-      obj.occurred_before = toDateNum;
       queryData = Object.assign(queryData, obj);
     }
 
+    return queryData;
+  }
+
+  const handleFindCasesClick = async () => {
+    setStatus('loading');
+    setClicked(true);
+
+    let queryData = getQueryData();
+
     try {
+      const resultPerPage = await getIncidents(queryData);
+      setResultListPerPage(resultPerPage.data.incidents);
+
+      delete queryData.per_page;
       const result = await getIncidents(queryData);
       setResultList(result.data.incidents);
     } catch (e) {
@@ -114,6 +125,15 @@ function MainPage() {
       setStatus('error');
     }
   }
+
+  const handlePageChange = async (event: any, value: number) => {
+    setPage(value);
+
+    let queryData = getQueryData();
+    queryData.page = value;
+    const resultPerPage = await getIncidents(queryData);
+    setResultListPerPage(resultPerPage.data.incidents);
+  };
 
   const renderResultDiv = () => {
     let resultDiv = null;
@@ -143,7 +163,12 @@ function MainPage() {
     } else {
       if (!_.isEmpty(resultList)) {
         resultDiv = (
-          <DisplayResult resultList={resultList} />
+          <div>
+            <DisplayResult resultList={resultListPerPage} />
+            <div className="d-flex justify-content-center">
+              <Pagination count={Math.round(resultList.length / 10)} color="secondary" showFirstButton showLastButton onChange={handlePageChange} />
+            </div>
+          </div>
         );
       } else {
         if (clicked) {
