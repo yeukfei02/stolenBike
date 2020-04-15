@@ -1,6 +1,6 @@
 # stolenBike
 
-stolenBike
+Help you to find stolen bike
 
 ## Requirement:
  - install yarn
