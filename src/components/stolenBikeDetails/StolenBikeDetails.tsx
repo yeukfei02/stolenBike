@@ -74,7 +74,7 @@ function StolenBikeDetails(props: any) {
       <div className="mt-5 mb-3 d-flex justify-content-center">
         <Paper className={`${classes.root} w-75 mx-4`}>
           <div className="h2"><b>Police Department</b></div>
-          <div className="mt-3 h4">Stolen Bike</div>
+          <div className="my-3 h4">Stolen Bike</div>
           {renderStolenBikeDetailsDiv()}
         </Paper>
       </div>
