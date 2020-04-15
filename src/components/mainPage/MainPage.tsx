@@ -44,10 +44,12 @@ function MainPage() {
 
   const [resultList, setResultList] = useState<any[]>([]);
   const [status, setStatus] = useState<string>('');
+  const [clicked, setClicked] = useState<boolean>(false);
 
   useEffect(() => {
-    if (resultList)
+    if (resultList) {
       setStatus('');
+    }
   }, [resultList]);
 
   const handleSearchCaseDescriptionChange = (e: any) => {
@@ -64,6 +66,7 @@ function MainPage() {
 
   const handleFindCasesClick = async () => {
     setStatus('loading');
+    setClicked(true);
 
     let formDateNum = 0;
     let toDateNum = 0;
@@ -143,15 +146,17 @@ function MainPage() {
           <DisplayResult resultList={resultList} />
         );
       } else {
-        resultDiv = (
-          <div className={classes.root}>
-            <div className="d-flex justify-content-center">
-              <Paper className={`${classes.root} w-75 mx-4`}>
-                <div className="h5">No reuslts</div>
-              </Paper>
+        if (clicked) {
+          resultDiv = (
+            <div className={classes.root}>
+              <div className="d-flex justify-content-center">
+                <Paper className={`${classes.root} w-75 mx-4`}>
+                  <div className="h5">No reuslts</div>
+                </Paper>
+              </div>
             </div>
-          </div>
-        );
+          );
+        }
       }
     }
 
