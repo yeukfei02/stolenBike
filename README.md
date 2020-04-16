@@ -35,7 +35,7 @@ open localhost:5000
 build images and start container
 ```
 docker build -t <username>/stolen-bike:<tag> .
-docker run -p 3000:3000 -d <username>/stolen-bike:<tag>
+docker run -p 80:80 -d <username>/stolen-bike:<tag>
 docker exec -it <containerId> /bin/bash
 docker logs <containerId>
 ```
