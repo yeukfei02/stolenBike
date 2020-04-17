@@ -19,19 +19,23 @@ jest.mock('react-router-dom', () => ({
 describe('main.test', () => {
   describe('render test', () => {
     it('MainPage', () => {
-      shallow(<MainPage />);
+      const wrapper = shallow(<MainPage />);
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('DisplayResult', () => {
-      shallow(<DisplayResult />);
+      const wrapper = shallow(<DisplayResult />);
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('StolenBikeDetails', () => {
-      shallow(<StolenBikeDetails />);
+      const wrapper = shallow(<StolenBikeDetails />);
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('CustomMap', () => {
-      shallow(<CustomMap />);
+      const wrapper = shallow(<CustomMap />);
+      expect(wrapper).toMatchSnapshot();
     });
   });
 });
