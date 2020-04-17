@@ -112,6 +112,7 @@ function MainPage() {
       const resultPerPage = await getIncidents(queryData);
       setResultListPerPage(resultPerPage.data.incidents);
 
+      delete queryData.page;
       delete queryData.per_page;
       const result = await getIncidents(queryData);
       setResultList(result.data.incidents);
