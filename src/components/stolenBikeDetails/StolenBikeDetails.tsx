@@ -48,15 +48,11 @@ function StolenBikeDetails(props: any) {
         .then((response) => {
           if (response && response.data) {
             response.data.features.forEach((item: any, i: number) => {
-              if (_.isEqual(item.properties.id.toString(), id)) {
-                if (item.geometry) {
-                  if (item.geometry.coordinates) {
-                    const latitude = item.geometry.coordinates[1];
-                    const longitude = item.geometry.coordinates[0];
-                    setLatitude(latitude);
-                    setLongitude(longitude);
-                  }
-                }
+              if (_.isEqual(item.properties.id.toString(), id) && item.geometry && item.geometry.coordinates) {
+                const latitude = item.geometry.coordinates[1];
+                const longitude = item.geometry.coordinates[0];
+                setLatitude(latitude);
+                setLongitude(longitude);
               }
             });
           }
