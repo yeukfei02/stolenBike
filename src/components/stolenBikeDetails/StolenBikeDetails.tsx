@@ -12,16 +12,6 @@ import CustomMap from '../customMap/CustomMap';
 
 const ROOT_URL = 'https://bikewise.org/api/v2';
 
-async function getLocationsMarkers() {
-  const response = await axios.get(`${ROOT_URL}/locations/markers`);
-  return response;
-}
-
-async function getIncidentById(id: string) {
-  const response = await axios.get(`${ROOT_URL}/incidents/${id}`);
-  return response;
-}
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -30,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function StolenBikeDetails(props: any) {
+function StolenBikeDetails(props: any): JSX.Element {
   const classes = useStyles();
   const history = useHistory();
 
@@ -43,40 +33,35 @@ function StolenBikeDetails(props: any) {
 
   useEffect(() => {
     if (id) {
-      const locationsMarkersResponse = getLocationsMarkers();
-      locationsMarkersResponse
-        .then((response) => {
-          if (response && response.data) {
-            response.data.features.forEach((item: any, i: number) => {
-              if (_.isEqual(item.properties.id.toString(), id) && item.geometry && item.geometry.coordinates) {
-                const latitude = item.geometry.coordinates[1];
-                const longitude = item.geometry.coordinates[0];
-                setLatitude(latitude);
-                setLongitude(longitude);
-              }
-            });
-          }
-        })
-        .catch((e) => {
-          console.log('error = ', e.message);
-        });
-
-      const result = getIncidentById(id);
-      result
-        .then((response) => {
-          if (response && response.data) setStolenBikeDetails(response.data.incident);
-        })
-        .catch((e) => {
-          console.log('error = ', e.message);
-        });
+      getLocationsMarkersRequest();
+      getIncidentByIdRequest(id);
     }
   }, [id]);
 
-  const handleBack = () => {
+  const getLocationsMarkersRequest = async (): Promise<void> => {
+    const response = await axios.get(`${ROOT_URL}/locations/markers`);
+    if (response && response.data) {
+      response.data.features.forEach((item: any, i: number) => {
+        if (_.isEqual(item.properties.id.toString(), id) && item.geometry && item.geometry.coordinates) {
+          const latitude = item.geometry.coordinates[1];
+          const longitude = item.geometry.coordinates[0];
+          setLatitude(latitude);
+          setLongitude(longitude);
+        }
+      });
+    }
+  };
+
+  const getIncidentByIdRequest = async (id: string): Promise<void> => {
+    const response = await axios.get(`${ROOT_URL}/incidents/${id}`);
+    if (response && response.data) setStolenBikeDetails(response.data.incident);
+  };
+
+  const handleBack = (): void => {
     history.push(`/`);
   };
 
-  const renderStolenBikeDetailsDiv = () => {
+  const renderStolenBikeDetailsDiv = (): JSX.Element | null => {
     let stolenBikeDetailsDiv = null;
 
     if (stolenBikeDetails) {

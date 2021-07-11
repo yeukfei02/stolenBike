@@ -16,13 +16,6 @@ import DisplayResult from '../displayResult/DisplayResult';
 
 const ROOT_URL = 'https://bikewise.org/api/v2';
 
-async function getIncidents(queryData: any) {
-  const response = await axios.get(`${ROOT_URL}/incidents`, {
-    params: queryData,
-  });
-  return response;
-}
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -31,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function MainPage() {
+function MainPage(): JSX.Element {
   const classes = useStyles();
 
   const [caseDescription, setCaseDescription] = useState<string | ''>('');
@@ -51,15 +44,15 @@ function MainPage() {
     }
   }, [resultList]);
 
-  const handleSearchCaseDescriptionChange = (e: any) => {
+  const handleSearchCaseDescriptionChange = (e: any): void => {
     setCaseDescription(e.target.value);
   };
 
-  const handleFromDateChange = (date: Date | null) => {
+  const handleFromDateChange = (date: Date | null): void => {
     setFromDate(date);
   };
 
-  const handleToDateChange = (date: Date | null) => {
+  const handleToDateChange = (date: Date | null): void => {
     setToDate(date);
   };
 
@@ -102,19 +95,23 @@ function MainPage() {
     return queryData;
   };
 
-  const handleFindCasesClick = async () => {
+  const handleFindCasesClick = async (): Promise<void> => {
     setStatus('loading');
     setClicked(true);
 
     const queryData = getQueryData();
 
     try {
-      const resultPerPage = await getIncidents(queryData);
+      const resultPerPage = await axios.get(`${ROOT_URL}/incidents`, {
+        params: queryData,
+      });
       setResultListPerPage(resultPerPage.data.incidents);
 
       delete queryData.page;
       delete queryData.per_page;
-      const result = await getIncidents(queryData);
+      const result = await axios.get(`${ROOT_URL}/incidents`, {
+        params: queryData,
+      });
       setResultList(result.data.incidents);
     } catch (e) {
       console.log('error = ', e.message);
@@ -122,7 +119,7 @@ function MainPage() {
     }
   };
 
-  const handlePageChange = async (event: any, value: number) => {
+  const handlePageChange = async (event: any, value: number): Promise<void> => {
     setPage(value);
 
     const queryData = getQueryData();
@@ -131,7 +128,7 @@ function MainPage() {
     setResultListPerPage(resultPerPage.data.incidents);
   };
 
-  const renderResultDiv = () => {
+  const renderResultDiv = (): JSX.Element | null => {
     let resultDiv = null;
 
     if (!_.isEmpty(status)) {

@@ -1,19 +1,19 @@
 import React from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
-function CustomMap(props: any) {
+function CustomMap(props: any): JSX.Element {
   const position: [number, number] = [props.latitude || 0, props.longitude || 0];
 
-  const handleAddressClick = (e: any) => {
+  const handleAddressClick = (e: any): void => {
     const text = e.target.innerHTML;
     window.open(`https://www.google.com/maps/search/?api=1&query=${text}`);
   };
 
-  const handleOnMouseEnterTextStyle = (e: any) => {
+  const handleOnMouseEnterTextStyle = (e: any): void => {
     e.target.setAttribute('style', 'cursor: pointer; text-decoration: underline; color: #ed1f30');
   };
 
-  const handleOnMouseLeaveTextStyle = (e: any) => {
+  const handleOnMouseLeaveTextStyle = (e: any): void => {
     e.target.removeAttribute('style');
   };
 
