@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.4](https://github.com/yeukfei02/stolenBike/compare/v1.2.3...v1.2.4) (2021-07-11)
+
+
+### Bug Fixes
+
+* 🐛 fix error ([3c21c8a](https://github.com/yeukfei02/stolenBike/commit/3c21c8afeaaad4974a3143f1df7f5c13a58a3183))
+
 ### [1.2.3](https://github.com/yeukfei02/stolenBike/compare/v1.2.2...v1.2.3) (2021-07-11)
 
 
