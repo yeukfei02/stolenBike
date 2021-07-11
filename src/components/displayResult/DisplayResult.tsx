@@ -31,15 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function DisplayResult(props: any) {
+function DisplayResult(props: any): JSX.Element {
   const classes = useStyles();
   const history = useHistory();
 
-  const handlePaperViewTitleClick = (id: string) => {
+  const handlePaperViewTitleClick = (id: string): void => {
     history.push(`/case/${id}`);
   };
 
-  const renderDisplayResult = () => {
+  const renderDisplayResult = (): any => {
     let paperViewResultList = null;
 
     if (props.resultList) {
