@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.5](https://github.com/yeukfei02/stolenBike/compare/v1.2.4...v1.2.5) (2021-07-11)
+
+
+### Bug Fixes
+
+* 🐛 add devDependencies in package.json ([f47afb0](https://github.com/yeukfei02/stolenBike/commit/f47afb006d28d8e11a990197b210dc4fdd160978))
+
 ### [1.2.4](https://github.com/yeukfei02/stolenBike/compare/v1.2.3...v1.2.4) (2021-07-11)
 
 
