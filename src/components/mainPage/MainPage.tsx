@@ -105,7 +105,9 @@ function MainPage(): JSX.Element {
       const resultPerPage = await axios.get(`${ROOT_URL}/incidents`, {
         params: queryData,
       });
-      setResultListPerPage(resultPerPage.data.incidents);
+      if (resultPerPage) {
+        setResultListPerPage(resultPerPage.data.incidents);
+      }
 
       delete queryData.page;
       delete queryData.per_page;
@@ -124,8 +126,12 @@ function MainPage(): JSX.Element {
 
     const queryData = getQueryData();
     queryData.page = value;
-    const resultPerPage = await getIncidents(queryData);
-    setResultListPerPage(resultPerPage.data.incidents);
+    const resultPerPage = await axios.get(`${ROOT_URL}/incidents`, {
+      params: queryData,
+    });
+    if (resultPerPage) {
+      setResultListPerPage(resultPerPage.data.incidents);
+    }
   };
 
   const renderResultDiv = (): JSX.Element | null => {
