@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/yeukfei02/stolenBike/compare/v1.2.2...v1.2.3) (2021-07-11)
+
+
+### Bug Fixes
+
+* 🐛 make better axios request ([bab4cb8](https://github.com/yeukfei02/stolenBike/commit/bab4cb82f1429a1ccec837e6afdfcc22c6f1da80))
+
 ### [1.2.2](https://github.com/yeukfei02/stolenBike/compare/v1.2.1...v1.2.2) (2020-10-18)
 
 ### [1.2.1](https://github.com/yeukfei02/stolenBike/compare/v1.2.0...v1.2.1) (2020-10-17)
