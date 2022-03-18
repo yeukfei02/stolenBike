@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.6](https://github.com/yeukfei02/stolenBike/compare/v1.2.5...v1.2.6) (2022-03-18)
+
+
+### Bug Fixes
+
+* 🐛 update package.json and readme.md for vercel deploy ([238ed7e](https://github.com/yeukfei02/stolenBike/commit/238ed7e3b74969623cafd717da19071d43f1bb16))
+
 ### [1.2.5](https://github.com/yeukfei02/stolenBike/compare/v1.2.4...v1.2.5) (2021-07-11)
 
 
