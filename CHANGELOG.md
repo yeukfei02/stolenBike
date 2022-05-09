@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.7](https://github.com/yeukfei02/stolenBike/compare/v1.2.6...v1.2.7) (2022-05-09)
+
+
+### Bug Fixes
+
+* 🐛 remove not used travis ([306b189](https://github.com/yeukfei02/stolenBike/commit/306b18954b92027af239c706e9c4db7fa1c73235))
+
 ### [1.2.6](https://github.com/yeukfei02/stolenBike/compare/v1.2.5...v1.2.6) (2022-03-18)
 
 
